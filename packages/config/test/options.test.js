@@ -3,15 +3,15 @@ import consola from 'consola'
 import { getNuxtConfig } from '../src/options'
 
 jest.mock('std-env', () => ({
-  isBrowser: false,
-  isTest: true,
-  isDevelopment: false,
-  isProduction: true,
-  isDebug: false,
-  isCI: true,
-  isWindows: false,
-  isMacOS: false,
-  isLinux: true
+  browser: false,
+  test: 'test',
+  dev: false,
+  production: true,
+  debug: false,
+  ci: true,
+  windows: false,
+  darwin: false,
+  linux: true
 }))
 
 jest.mock('@nuxt/utils', () => ({

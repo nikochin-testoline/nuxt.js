@@ -8,7 +8,7 @@ import * as PnpWebpackPlugin from 'pnp-webpack-plugin'
 import HardSourcePlugin from 'hard-source-webpack-plugin'
 import TerserWebpackPlugin from 'terser-webpack-plugin'
 import WebpackBar from 'webpackbar'
-import { isMinimal } from 'std-env'
+import env from 'std-env'
 import semver from 'semver'
 import { isRelative } from 'ufo'
 
@@ -17,7 +17,6 @@ import { TARGETS, isUrl, urlJoin, getPKG, tryResolve, requireModule, resolveModu
 import PerfLoader from '../utils/perf-loader'
 import StyleLoader from '../utils/style-loader'
 import WarningIgnorePlugin from '../plugins/warning-ignore'
-import { Watchpack2Plugin } from '../plugins/watchpack'
 import { reservedVueTags } from '../utils/reserved-tags'
 
 export default class WebpackBaseConfig {
@@ -125,7 +124,7 @@ export default class WebpackBaseConfig {
       try {
         corejsVersion = Number.parseInt(requireModule('core-js/package.json', rootDir).version.split('.')[0])
       } catch (_err) {
-        corejsVersion = 3
+        corejsVersion = 2
       }
     } else {
       corejsVersion = Number.parseInt(corejsVersion)
@@ -133,7 +132,7 @@ export default class WebpackBaseConfig {
 
     if (![2, 3].includes(corejsVersion)) {
       consola.warn(`Invalid corejs version ${corejsVersion}! Please set "build.corejs" to either "auto", 2 or 3.`)
-      corejsVersion = 3
+      corejsVersion = 2
     }
 
     const defaultPreset = [this.resolveModule('@nuxt/babel-preset-app'), {
@@ -330,7 +329,6 @@ export default class WebpackBaseConfig {
       },
       {
         test: /\.m?jsx?$/i,
-        type: 'javascript/auto',
         exclude: (file) => {
           file = file.split(/node_modules(.*)/)[1]
 
@@ -446,8 +444,8 @@ export default class WebpackBaseConfig {
         'profile',
         'stats'
       ],
-      basic: !buildOptions.quiet && isMinimal,
-      fancy: !buildOptions.quiet && !isMinimal,
+      basic: !buildOptions.quiet && env.minimalCLI,
+      fancy: !buildOptions.quiet && !env.minimalCLI,
       profile: !buildOptions.quiet && buildOptions.profile,
       stats: !buildOptions.quiet && !this.dev && buildOptions.stats,
       reporter: {
@@ -479,8 +477,6 @@ export default class WebpackBaseConfig {
         ...buildOptions.hardSource
       }))
     }
-
-    plugins.push(new Watchpack2Plugin())
 
     return plugins
   }

@@ -2,8 +2,8 @@ import { consola } from '../utils'
 import { showBanner } from '../../src/utils/banner'
 
 jest.mock('std-env', () => ({
-  isTest: false,
-  isMinimal: true
+  test: false,
+  minimalCLI: true
 }))
 
 describe('cli/utils', () => {

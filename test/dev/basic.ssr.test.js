@@ -182,14 +182,14 @@ describe('basic ssr', () => {
     test('/redirect -> external link', async () => {
       const { html } = await nuxt.server.renderRoute('/redirect-external', renderContext)
       expect(_status).toBe(302)
-      expect(_headers.Location).toBe('https://example.com/test/')
+      expect(_headers.Location).toBe('https://nuxtjs.org/docs/2.x/features/data-fetching/')
       expect(html).toContain('<div data-server-rendered="true" id="__nuxt"></div>')
     })
 
     test('/redirect -> external link without trailing slash', async () => {
       const { html } = await nuxt.server.renderRoute('/redirect-external-no-slash', renderContext)
       expect(_status).toBe(302)
-      expect(_headers.Location).toBe('https://example.com/test')
+      expect(_headers.Location).toBe('https://nuxtjs.org/docs/2.x/features/data-fetching')
       expect(html).toContain('<div data-server-rendered="true" id="__nuxt"></div>')
     })
 
@@ -201,16 +201,10 @@ describe('basic ssr', () => {
     })
   })
 
-  test('/before-nuxt-render -> check window.__NUXT__.beforeNuxtRender = true', async () => {
-    const window = await nuxt.server.renderAndGetWindow(url('/before-nuxt-render'))
+  test('/special-state -> check window.__NUXT__.test = true', async () => {
+    const window = await nuxt.server.renderAndGetWindow(url('/special-state'))
     expect(window.document.title).toBe('Nuxt')
-    expect(window.__NUXT__.beforeNuxtRender).toBe(true)
-  })
-
-  test('/before-serialize -> check window.__NUXT__.beforeSerialize = true', async () => {
-    const window = await nuxt.server.renderAndGetWindow(url('/before-serialize'))
-    expect(window.document.title).toBe('Nuxt')
-    expect(window.__NUXT__.beforeSerialize).toBe(true)
+    expect(window.__NUXT__.test).toBe(true)
   })
 
   test('/error', async () => {

@@ -7,7 +7,7 @@ export default {
   middleware ({ beforeNuxtRender }) {
     if (process.server) {
       beforeNuxtRender(({ nuxtState }) => {
-        nuxtState.beforeNuxtRender = true
+        nuxtState.test = true
       })
     }
   }

@@ -1,11 +1,11 @@
 import { capitalize } from 'lodash'
-import { isDevelopment, isTest } from 'std-env'
+import env from 'std-env'
 import { TARGETS } from '@nuxt/utils'
 
 export default () => ({
   // Env
-  dev: Boolean(isDevelopment),
-  test: Boolean(isTest),
+  dev: Boolean(env.dev),
+  test: Boolean(env.test),
   debug: undefined, // = dev
   env: {},
 

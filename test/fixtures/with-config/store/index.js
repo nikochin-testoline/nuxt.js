@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-// eslint-disable-next-line import/no-named-as-default-member
 const store = () => new Vuex.Store({
   state: {
     counter: 0

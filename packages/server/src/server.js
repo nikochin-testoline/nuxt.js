@@ -87,15 +87,13 @@ export default class Server {
       this.useMiddleware(createTimingMiddleware(this.options.server.timing))
     }
 
-    if (this.options.render.static !== false) {
-      // For serving static/ files to /
-      const staticMiddleware = serveStatic(
-        path.resolve(this.options.srcDir, this.options.dir.static),
-        this.options.render.static
-      )
-      staticMiddleware.prefix = this.options.render.static.prefix
-      this.useMiddleware(staticMiddleware)
-    }
+    // For serving static/ files to /
+    const staticMiddleware = serveStatic(
+      path.resolve(this.options.srcDir, this.options.dir.static),
+      this.options.render.static
+    )
+    staticMiddleware.prefix = this.options.render.static.prefix
+    this.useMiddleware(staticMiddleware)
 
     // Serve .nuxt/dist/client files only for production
     // For dev they will be served with devMiddleware

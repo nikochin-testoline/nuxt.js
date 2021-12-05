@@ -219,10 +219,8 @@ Object {
     "dir": "/var/nuxt/test/dist",
     "exclude": Array [],
     "fallback": "200.html",
-    "ignoreEnv": false,
     "interval": 0,
     "manifest": true,
-    "nojekyll": true,
     "routes": Array [],
     "staticAssets": Object {
       "base": "/_nuxt/static",

@@ -1,12 +1,14 @@
 import consola from 'consola'
-import { isWindows } from 'std-env'
+import env from 'std-env'
 import exit from 'exit'
 
-describe.win = isWindows ? describe : describe.skip
-test.win = isWindows ? test : test.skip
+const isWin = env.windows
 
-describe.posix = !isWindows ? describe : describe.skip
-test.posix = !isWindows ? test : test.skip
+describe.win = isWin ? describe : describe.skip
+test.win = isWin ? test : test.skip
+
+describe.posix = !isWin ? describe : describe.skip
+test.posix = !isWin ? test : test.skip
 
 jest.setTimeout(60000)
 
@@ -22,7 +24,7 @@ process.on('uncaughtException', errorTrap)
 
 expect.extend({
   toBePath (received, posixPath, winPath) {
-    const expectedPath = isWindows ? winPath : posixPath
+    const expectedPath = isWin ? winPath : posixPath
     const pass = received === expectedPath
     return {
       pass,

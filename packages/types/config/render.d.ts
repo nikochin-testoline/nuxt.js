@@ -72,5 +72,5 @@ export interface NuxtOptionsRender {
   resourceHints?: boolean
   ssr?: boolean
   ssrLog?: boolean | 'collapsed'
-  static?: ServeStaticOptions | false
+  static?: ServeStaticOptions
 }

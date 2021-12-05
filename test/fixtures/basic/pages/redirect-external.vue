@@ -5,7 +5,7 @@
 <script>
 export default {
   middleware ({ redirect }) {
-    return redirect('https://example.com/test/')
+    return redirect('https://nuxtjs.org/docs/2.x/features/data-fetching/')
   }
 }
 </script>

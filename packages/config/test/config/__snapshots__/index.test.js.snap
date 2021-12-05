@@ -194,10 +194,8 @@ Object {
     "dir": "dist",
     "exclude": Array [],
     "fallback": "200.html",
-    "ignoreEnv": false,
     "interval": 0,
     "manifest": true,
-    "nojekyll": true,
     "routes": Array [],
     "staticAssets": Object {
       "base": undefined,
@@ -584,10 +582,8 @@ Object {
     "dir": "dist",
     "exclude": Array [],
     "fallback": "200.html",
-    "ignoreEnv": false,
     "interval": 0,
     "manifest": true,
-    "nojekyll": true,
     "routes": Array [],
     "staticAssets": Object {
       "base": undefined,

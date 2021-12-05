@@ -1,7 +1,9 @@
 import { resolve } from 'path'
-import { isWindows } from 'std-env'
+import env from 'std-env'
 
-const rootDir = isWindows ? 'C:\\nuxt' : '/var/nuxt'
+const isWin = env.windows
+
+const rootDir = isWin ? 'C:\\nuxt' : '/var/nuxt'
 
 export const createNuxt = () => ({
   ready: jest.fn(),

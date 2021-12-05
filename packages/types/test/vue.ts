@@ -3,10 +3,10 @@
  * @nuxt/types/app/vue.d.ts
  */
 
-import Vue from 'vue'
-import type { Middleware } from '..'
+import Vue, { ComponentOptions } from 'vue'
+import { Middleware } from '..'
 
-const options: Vue.ComponentOptions<Vue> = {}
+const options: ComponentOptions<Vue> = {}
 
 // asyncData
 

@@ -177,7 +177,6 @@ export interface NuxtOptionsBuild {
   }
   ssr?: boolean
   standalone?: boolean
-  stats?: WebpackConfiguration['stats']
   templates?: any
   terser?: TerserPluginOptions | boolean
   transpile?: Array<string | RegExp | ((context: NuxtWebpackEnv) => string | RegExp | undefined)>

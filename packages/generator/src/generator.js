@@ -6,7 +6,7 @@ import fsExtra from 'fs-extra'
 import defu from 'defu'
 import htmlMinifier from 'html-minifier'
 import { parse } from 'node-html-parser'
-import { withTrailingSlash, withoutTrailingSlash, decode } from 'ufo'
+import { withTrailingSlash, withoutTrailingSlash } from 'ufo'
 
 import { isFullStatic, flatRoutes, isString, isUrl, promisifyRoute, urlJoin, waitFor, requireModule } from '@nuxt/utils'
 
@@ -84,12 +84,6 @@ export default class Generator {
     await this.nuxt.callHook('export:before', this)
 
     if (build) {
-      if (!this.builder) {
-        throw new Error(
-          `Could not generate. Make sure a Builder instance is passed to the constructor of \`Generator\` class or \`getGenerator\` function \
-or disable the build step: \`generate({ build: false })\``)
-      }
-
       // Add flag to set process.static
       this.builder.forGenerate()
 
@@ -273,10 +267,8 @@ or disable the build step: \`generate({ build: false })\``)
 
     // Add .nojekyll file to let GitHub Pages add the _nuxt/ folder
     // https://help.github.com/articles/files-that-start-with-an-underscore-are-missing/
-    if (this.options.generate.nojekyll) {
-      const nojekyllPath = path.resolve(this.distPath, '.nojekyll')
-      await fsExtra.writeFile(nojekyllPath, '')
-    }
+    const nojekyllPath = path.resolve(this.distPath, '.nojekyll')
+    await fsExtra.writeFile(nojekyllPath, '')
 
     await this.nuxt.callHook('generate:distCopied', this)
     await this.nuxt.callHook('export:distCopied', this)
@@ -353,7 +345,7 @@ or disable the build step: \`generate({ build: false })\``)
       // Save Static Assets
       if (this.staticAssetsDir && renderContext.staticAssets) {
         for (const asset of renderContext.staticAssets) {
-          const assetPath = path.join(this.staticAssetsDir, decode(asset.path))
+          const assetPath = path.join(this.staticAssetsDir, decodeURI(asset.path))
           await fsExtra.ensureDir(path.dirname(assetPath))
           await fsExtra.writeFile(assetPath, asset.src, 'utf-8')
         }

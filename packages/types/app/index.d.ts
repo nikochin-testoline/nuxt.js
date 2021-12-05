@@ -1,12 +1,11 @@
-import type { ServerResponse } from 'http'
-import type { IncomingMessage, NextFunction } from 'connect'
-import type Vue from 'vue'
-import type { Route } from 'vue-router'
-import type { Store } from 'vuex'
-import VueRouter from 'vue-router'
+import { ServerResponse } from 'http'
+import { IncomingMessage, NextFunction } from 'connect'
+import Vue, { ComponentOptions } from 'vue'
+import VueRouter, { Location, Route } from 'vue-router'
+import { Store } from 'vuex'
 
-import type { NuxtOptions } from '../config'
-import type { NuxtRuntimeConfig } from '../config/runtime'
+import { NuxtOptions } from '../config'
+import { NuxtRuntimeConfig } from '../config/runtime'
 
 // augment typings of Vue.js
 import './vue'
@@ -16,7 +15,7 @@ import './vuex'
 
 type NuxtState = Record<string, any>
 
-export interface NuxtAppOptions extends Vue.ComponentOptions<Vue> {
+export interface NuxtAppOptions extends ComponentOptions<Vue> {
   [key: string]: any // TBD
 }
 
@@ -73,7 +72,6 @@ export interface Context {
     redirected: boolean
     next: NextFunction
     beforeRenderFns: Array<() => any>
-    beforeSerializeFns: Array<() => any>
     fetchCounters: Record<string, number>
     nuxt: {
       layout: string
@@ -89,7 +87,6 @@ export interface Context {
   error(params: NuxtError): void
   nuxtState: NuxtState
   beforeNuxtRender(fn: (params: { Components: VueRouter['getMatchedComponents'], nuxtState: NuxtState }) => void): void
-  beforeSerialize(fn: (nuxtState: NuxtState) => void): void
   enablePreview?: (previewData?: Record<string, any>) => void
   $preview?: Record<string, any>
 }
@@ -177,8 +174,6 @@ export interface NuxtApp extends Vue {
 // window.$nuxt
 declare global {
   interface Window {
-    onNuxtLoaded: (cb: (app: NuxtApp) => void) => void
-    onNuxtReady: (cb: (app: NuxtApp) => void) => void
     $nuxt: NuxtApp
   }
 }
